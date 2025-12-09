@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec > /dev/null 2>&1
+
 # Captura o commit message vindo do Shortcuts
 entered_search="$1"
 
