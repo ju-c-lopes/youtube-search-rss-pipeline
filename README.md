@@ -5,6 +5,10 @@ You can access an online version for the page of this repository at [https://ju-
 `youtube-search-rss-pipeline` is an automated system that generates **RSS feeds** from YouTube search queries using **Apple Shortcuts** and a **Shell-based static site generator**.<br> 
 The pipeline creates structured `.rss` files, builds an updated `index.html` linking all feeds, and optionally push changes to GitHub — forming a lightweight personal CI/CD workflow.
 
+See it running below:
+
+<img src="./img/video.gif">
+
 ---
 
 ## 🚀 Features
