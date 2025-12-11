@@ -13,6 +13,6 @@ export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_rsa -o IdentitiesOnly=yes"
 git add .
 
 # Commit seguro (evita erro se não houver mudanças)
-git diff --cached --quiet || git commit -m "$entered_search inserted"
+git commit -m "$entered_search inserted"
 
 git push origin main

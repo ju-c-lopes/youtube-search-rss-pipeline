@@ -1,0 +1,48 @@
+#!/bin/bash
+
+cd "$HOME/Documents/youtube-search-rss" || exit 1
+
+FEED_DIR="./feed"
+TEMPLATE_FILE="./index.html"
+OUTPUT_FILE="./index.new.html"
+LINKS_FILE="./links.tmp"
+
+# Gera a lista de <li><a> a partir dos .rss
+: > "$LINKS_FILE"   # limpa o arquivo temporário
+
+for file in "$FEED_DIR"/*.rss; do
+    [ -e "$file" ] || continue  # se não tiver nenhum .rss, pula
+
+    filename=$(basename "$file" .rss)
+
+    # trocar hífens por espaços e capitalizar
+    display=$(echo "$filename" \
+        | sed 's/-/ /g' \
+        | awk '{for(i=1;i<=NF;i++){$i=toupper(substr($i,1,1)) substr($i,2)}}1')
+
+    echo "        <li><a href=\"$file\">$display</a></li>" >> "$LINKS_FILE"
+done
+
+# Injeta os links entre <!-- LINKS START --> e <!-- LINKS END -->
+awk -v links_file="$LINKS_FILE" '
+    /<!-- LINKS START -->/ {
+        print
+        # insere os links logo depois do marcador START
+        while ((getline line < links_file) > 0) {
+            print line
+        }
+        close(links_file)
+        in_block=1
+        next
+    }
+    /<!-- LINKS END -->/ {
+        in_block=0
+        print
+        next
+    }
+    in_block == 1 { next }  # ignora o que estiver entre START e END antigo
+    { print }
+' "$TEMPLATE_FILE" > "$OUTPUT_FILE"
+
+mv "$OUTPUT_FILE" "$TEMPLATE_FILE"
+rm -f "$LINKS_FILE"
