@@ -7,7 +7,7 @@ The pipeline creates structured `.rss` files, builds an updated `index.html` lin
 
 See it running below:
 
-<img src="./img/video.gif">
+<img src="./img/video.gif" width="900">
 
 ---
 
@@ -38,6 +38,12 @@ youtube-search-rss-pipeline/
 ├── Create RSS for YouTube search.shortcut  # Shared shortcut pipeline
 └── README.md
 ```
+
+## 🏗️ Architecture Solution
+
+This diagram represents the end-to-end workflow used to generate curated RSS feeds from YouTube searches, prioritizing user intent, validation, and deterministic outputs.
+
+<img src="./img/rss-workflow.jpg" alt="Architectural structure of the project solution">
 
 ---
 
